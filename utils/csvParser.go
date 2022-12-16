@@ -27,28 +27,24 @@ func init() {
 	recordsHolder.Records = records
 }
 
-func GetRecordsHolder() RecordsHolder {
-	return recordsHolder
-}
-
-func ParseCsvLine(records [][]string, id int) (model.Promotion, error) {
+func ParseCsvLine(id int) (model.Promotion, error) {
 	if id < 1 || id > len(recordsHolder.Records) {
 		return model.Promotion{}, errors.New(fmt.Sprintf(" id %v out of range", id))
 	}
 	id--
-	parsedPrice, err := strconv.ParseFloat(records[id][1], 64)
+	parsedPrice, err := strconv.ParseFloat(recordsHolder.Records[id][1], 64)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 
-	parsedTime, err := time.Parse("2006-01-02 15:04:05", records[id][2][:19])
+	parsedTime, err := time.Parse("2006-01-02 15:04:05", recordsHolder.Records[id][2][:19])
 
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 
 	promotion := model.Promotion{
-		Id:             records[id][0],
+		Id:             recordsHolder.Records[id][0],
 		Price:          parsedPrice,
 		ExpirationDate: parsedTime,
 	}

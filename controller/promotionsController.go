@@ -14,9 +14,7 @@ func GetPromotion(responseWriter http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	records := utils.GetRecordsHolder().Records
-
-	promo, err := utils.ParseCsvLine(records, id)
+	promo, err := utils.ParseCsvLine(id)
 	if err != nil {
 		responseWriter.WriteHeader(http.StatusNotFound)
 		responseWriter.Write([]byte(err.Error()))
