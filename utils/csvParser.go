@@ -32,7 +32,6 @@ func GetRecordsHolder() RecordsHolder {
 }
 
 func ParseCsvLine(records [][]string, id int) (model.Promotion, error) {
-	fmt.Println(len(recordsHolder.Records))
 	if id < 1 || id > len(recordsHolder.Records) {
 		return model.Promotion{}, errors.New(fmt.Sprintf(" id %v out of range", id))
 	}
